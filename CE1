@@ -1,0 +1,36 @@
+hostname CE1
+!
+ip cef
+!
+!
+no ip domain lookup
+!
+!
+interface Loopback0
+ ip address 192.168.5.5 255.255.255.0
+!
+interface FastEthernet0/0
+ description Link to PE1
+ ip address 10.10.5.5 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/3/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router bgp 500
+ no synchronization
+ bgp router-id 5.5.5.5
+ bgp log-neighbor-changes
+ redistribute connected
+ neighbor 10.10.5.1 remote-as 100
+ no auto-summary
