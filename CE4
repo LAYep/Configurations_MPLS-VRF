@@ -1,0 +1,37 @@
+hostname CE4
+!
+ip cef
+no ip domain lookup
+no ipv6 cef
+!
+!
+interface Loopback0
+ ip address 192.168.8.8 255.255.255.0
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ description Link to PE2
+ ip address 10.10.8.8 255.255.255.0
+ duplex auto
+ speed auto
+!
+!
+interface FastEthernet0/3/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router bgp 800
+ no synchronization
+ bgp router-id 8.8.8.8
+ bgp log-neighbor-changes
+ redistribute connected
+ neighbor 10.10.8.1 remote-as 100
+ no auto-summary
+!
