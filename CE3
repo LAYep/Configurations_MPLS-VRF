@@ -1,0 +1,29 @@
+hostname CE3
+!
+ip cef
+!
+no ip domain lookup
+!
+!
+interface Loopback0
+ ip address 192.168.7.7 255.255.255.0
+!
+interface FastEthernet0/0
+ description Link to PE2
+ ip address 10.10.7.7 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router bgp 700
+ no synchronization
+ bgp router-id 7.7.7.7
+ bgp log-neighbor-changes
+ redistribute connected
+ neighbor 10.10.7.1 remote-as 100
+ no auto-summary
